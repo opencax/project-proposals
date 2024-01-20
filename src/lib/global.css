@@ -3,3 +3,8 @@ body {
     margin: 2rem;
     padding: 0;
 }
+
+.card img {
+    max-width: 90%;
+    max-height: 400px;
+}
