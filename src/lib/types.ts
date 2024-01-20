@@ -8,6 +8,7 @@ interface Issue {
     title: string
     number: number
     body: string
+    html_url: string
     labels: Label[]
 }
 
