@@ -1,8 +1,18 @@
 <script lang="ts">
 	import SvelteMarkdown from 'svelte-markdown'
+	import { CollapsibleCard } from 'svelte-collapsible'
+
+	import '$lib/global.css'
 
 	export let data
 
+	const sortedLables = (issue: Issue) => {
+		return issue.labels.sort((a, b) => {
+			if (a.name < b.name) return -1
+			if (a.name > b.name) return 1
+			return 0
+		})
+	}
 	const org = (issue: Issue) => {
 		const prefix = 'project: '
 		return issue.labels
@@ -16,22 +26,25 @@
 <h1>Project Proposals</h1>
 {#each data.issues as issue (issue.id)}
 	<div class="card">
-		<h2>
-			<img class="logo" src="assets/logos/{org(issue)}_64.png" alt="logo" />{issue.title} (#{issue.number})
-		</h2>
-		{#each issue.labels as label}
-			{#if /:/.test(label.name)}
-				<div class="label" style="background-color: #{label.color};">{label.name}</div>
-			{/if}
-		{/each}
-		<SvelteMarkdown source={issue.body} />
-		<p></p>
+		<CollapsibleCard open={false}>
+			<div class="header" slot="header">
+				<h1>
+					<img class="logo" src="assets/logos/{org(issue)}_64.png" alt="logo" />{issue.title} (#{issue.number})
+				</h1>
+				{#each sortedLables(issue) as label}
+					{#if /:/.test(label.name)}
+						<div class="label" style="background-color: #{label.color};">{label.name}</div>
+					{/if}
+				{/each}
+			</div>
+			<SvelteMarkdown slot="body" source={issue.body} />
+		</CollapsibleCard>
 	</div>
 {/each}
 
 <style>
-	h2 {
-		font-size: 1.6rem;
+	.header {
+		text-align: left;
 	}
 	.card {
 		border: 1px solid #777;
@@ -50,5 +63,6 @@
 		border-radius: 0.5rem;
 		padding: 0.2rem 0.5rem;
 		margin-right: 0.5rem;
+		margin-bottom: 1rem;
 	}
 </style>
