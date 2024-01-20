@@ -81,7 +81,7 @@
 			<h1 slot="title">
 				{issue.title} (<a target="_blank" href={issue.html_url}>#{issue.number}</a>)
 			</h1>
-			<img slot="logo" class="logo" src="assets/logos/{org(issue)}_64.png" alt="logo" />
+			<img slot="logo" class="logo" src="assets/logos/{org(issue)}_128.png" alt="logo" />
 			<p slot="header">
 				{#each sortedLables(issue) as label}
 					{#if /:/.test(label.name)}
