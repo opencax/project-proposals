@@ -2,6 +2,7 @@ import type { PageLoad } from './$types'
 import seedrandom from 'seedrandom'
 
 export const prerender = true;
+export const ssr = false;
 
 const shuffle = (arr: Issue[]): Issue[] => {
     // re-seed every minute
