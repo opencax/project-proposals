@@ -1,4 +1,6 @@
 <script lang="ts">
+	import SvelteMarkdown from 'svelte-markdown'
+
 	export let data
 
 	const org = (issue: Issue) => {
@@ -22,6 +24,7 @@
 				<div class="label" style="background-color: #{label.color};">{label.name}</div>
 			{/if}
 		{/each}
+		<SvelteMarkdown source={issue.body} />
 		<p></p>
 	</div>
 {/each}
